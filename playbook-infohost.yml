@@ -1,0 +1,21 @@
+---
+- name: inform about client
+  hosts: all
+  become: yes
+
+  tasks:
+
+  - debug:
+      var: ansible_os_family
+  - debug: 
+      var: ansible_distribution
+  - debug:
+      var: ansible_distribution_version
+  - debug:
+      var: ansible_dns
+  - debug:
+      var: ansible_domain
+  - debug:
+      var: ansible_fqdn
+  - debug:
+      var: ansible_hostname

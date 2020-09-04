@@ -1,0 +1,29 @@
+---
+# tasks file for POST-UP_INSTALL_FREEIPA-CLIENT
+
+- block: #====Remove puppet-agent===========
+    - name: Remove puppet-agent
+      apt:
+        name: puppet-agent
+        state: absent
+
+- block: #====Post-up Install FreeIpa=======
+    - name: add info in to file /etc/hosts
+      lineinfile:
+        path: /etc/hosts
+        insertbefore: BOF
+        line: "{{ addhostsipa }}"
+    - name: change local-name
+      lineinfile:
+        path: /etc/hosts
+        regexp: '^127.0.1.1*'
+        line: 127.0.1.1	{{ fqdnhostname }}.int.grcc.ru {{ fqdnhostname }}
+    - name: add info in to file /etc/resolv
+      lineinfile:
+        path: /etc/resolv.conf
+        insertbefore: BOF
+        line: "{{ addresolvdnsipa }}"
+
+- block: #====Change FQDN name server=======
+    - name: Change FQDN name server
+      command: hostnamectl set-hostname "{{ fqdnhostname }}".int.grcc.ru

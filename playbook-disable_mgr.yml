@@ -1,0 +1,13 @@
+---
+- name: Test
+  hosts: all
+  become: yes
+
+  tasks:
+
+  - block: #====Disable local user===========
+      - name: Disable shell local user
+        user:
+          name: mgr
+          state: absent
+          shell: no

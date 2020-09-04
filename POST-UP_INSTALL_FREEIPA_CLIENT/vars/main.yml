@@ -1,0 +1,5 @@
+---
+# vars file for POST-UP_INSTALL_FREEIPA-CLIENT
+
+addhostsipa:                   10.6.5.20        dc01.int.grcc.ru
+addresolvdnsipa:               nameserver 10.6.5.20

@@ -1,0 +1,6 @@
+---
+# vars file for INSTALL_CONFIGURE_FREEIPA-CLIENT
+
+freeipaclient_enroll_user:     admin
+freeipaclient_enroll_pass:     EhPdaXHHt
+local_user_disable_shell:      mgr

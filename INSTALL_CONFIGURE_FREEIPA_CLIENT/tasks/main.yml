@@ -1,0 +1,36 @@
+---
+# tasks file for INSTALL_CONFIGURE_FREEIPA-CLIENT
+
+- block: #====Install FreeIPA for deb=======
+    - name: Install FreeIPA
+      apt: name=freeipa-client state=latest
+
+- block: #====Configure FreeIPA-client=====
+    - name: Configure FreeIPA-client
+      shell: yes | ipa-client-install --mkhomedir --principal={{ freeipaclient_enroll_user }} --password={{ freeipaclient_enroll_pass }}
+
+- block: #====Disable Auth by pass=========
+    - name: Edit sshd_config for auth by pass
+      lineinfile:
+        path: /etc/ssh/sshd_config
+        regexp: '^#PasswordAuthentication yes'
+        line: PasswordAuthentication no
+    - name: Restart SSHD
+      service: name=ssh state=restarted
+
+- block: #====Create homedir ANSIBLE=======
+    - name: Create homedir Ansible
+      file:  
+        path: /home/ansible
+        state: directory
+        mode: '0755'
+        owner: ansible
+        group: ansible 
+
+#- block: #====Disable local user===========
+#    - name: Disable shell local user
+#      user:
+#        name: "{{ local_user_disable_shell }}"
+#        state: absent
+#        shell: no
+

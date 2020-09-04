@@ -1,0 +1,7 @@
+---
+- name: Deploy FreeIPA-Client
+  hosts: all
+  become: yes
+
+  roles:
+    - { role: INSTALL_CONFIGURE_FREEIPA_CLIENT, when: ansible_os_family == 'Debian' }

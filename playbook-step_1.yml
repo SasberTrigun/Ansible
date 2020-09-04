@@ -1,0 +1,8 @@
+---
+- name: Post-up
+  hosts: all
+  become: yes
+
+  roles:
+    - { role: POST-UP_INSTALL_FREEIPA_CLIENT, when: ansible_os_family == 'Debian' }
+
